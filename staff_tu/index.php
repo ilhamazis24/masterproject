@@ -92,7 +92,7 @@ if($_SESSION['level']!="staff_tu")
                                 </div>
                                 <div class="nav-lavel"></div>
                                 <div class="nav-item">
-                                    <a href="#"><i class="ik ik-box"></i><span>Data Surat Izin</span></a>
+                                    <a href="suratIzin.php"><i class="ik ik-box"></i><span>Data Surat Izin</span></a>
                                 </div>
                                 <div class="nav-lavel"></div>
                             </nav>

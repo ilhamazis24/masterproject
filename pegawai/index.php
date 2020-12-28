@@ -80,19 +80,19 @@ if($_SESSION['level']!="pegawai")
                             <nav id="main-menu-navigation" class="navigation-main">
                             <div class="nav-lavel"></div>
                                 <div class="nav-item">
-                                    <a href="index.html"><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
+                                    <a href="index.php"><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
                                 </div>
                                 <div class="nav-lavel"></div>
                                 <div class="nav-item">
-                                    <a href="pages/navbar.html"><i class="ik ik-menu"></i><span>Data Profil</span></a>
+                                    <a href="profil.php"><i class="ik ik-menu"></i><span>Data Profil</span></a>
                                 </div>
                                 <div class="nav-lavel"></div>
                                 <div class="nav-item">
-                                    <a href=""><i class="ik ik-layers"></i><span>Data Pegawai</span></a>
+                                    <a href="pegawai.php"><i class="ik ik-layers"></i><span>Data Pegawai</span></a>
                                 </div>
                                 <div class="nav-lavel"></div>
                                 <div class="nav-item">
-                                    <a href="#"><i class="ik ik-box"></i><span>Data Surat Izin</span></a>
+                                    <a href="pengajuan.php"><i class="ik ik-box"></i><span>Data Surat Izin</span></a>
                                 </div>
                                 <div class="nav-lavel"></div>
                             </nav>
