@@ -45,6 +45,19 @@ if($_SESSION['level']!="admin")
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+        <?php
+              include "../koneksi.php";
+              $id = $_SESSION['id'];
+              $query="SELECT * FROM profil where id='$id'";
+              $sql = mysqli_query ($connect,$query);
+              $no = 1;
+              while ($hasil = mysqli_fetch_array($sql)) {
+                $nama_lengkap = $hasil ['nama_lengkap'];
+                $gelar_depan = $hasil ['gelar_depan'];
+                $gelar_belakang = $hasil ['gelar_belakang'];
+                ?>
+                
+              <?php } ?>
 
         <div class="wrapper">
             <header class="header-top" header-theme="green">
@@ -55,6 +68,7 @@ if($_SESSION['level']!="admin")
                         <b><span >&nbsp;&nbsp;&nbsp;Taman Nasional Laut Kepulauan Seribu</span></b>
                          </div>
                         <div class="top-menu d-flex align-items-center">
+                        <span><b><?php echo $gelar_depan; echo $nama_lengkap; echo $gelar_belakang; ?></span></b>
                         <div class="dropdown">
                                 <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar" src="../img/user.jpg" alt=""></a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -80,7 +94,7 @@ if($_SESSION['level']!="admin")
                             <nav id="main-menu-navigation" class="navigation-main">
                             <div class="nav-lavel"></div>
                                 <div class="nav-item">
-                                    <a href="index.php"><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
+                                    <a href=" "><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
                                 </div>
                                 <div class="nav-lavel"></div>
                                 <div class="nav-item">
@@ -88,15 +102,15 @@ if($_SESSION['level']!="admin")
                                 </div>
                                 <div class="nav-lavel"></div>
                                 <div class="nav-item">
-                                    <a href=""><i class="ik ik-layers"></i><span>Data Pegawai</span></a>
+                                    <a href="data_akun.php"><i class="ik ik-package"></i><span>Data Akun</span></a>
+                                </div>
+                                <div class="nav-lavel"></div>
+                                <div class="nav-item">
+                                    <a href="data_pegawai.php"><i class="ik ik-layers"></i><span>Data Pegawai</span></a>
                                 </div>
                                 <div class="nav-lavel"></div>
                                 <div class="nav-item">
                                     <a href="#"><i class="ik ik-box"></i><span>Data Surat Izin</span></a>
-                                </div>
-                                <div class="nav-lavel"></div>
-                                <div class="nav-item">
-                                    <a href="#"><i class="ik ik-package"></i><span>Data Akun</span></a>
                                 </div>
                                 <div class="nav-lavel"></div>
                             </nav>
@@ -183,6 +197,7 @@ if($_SESSION['level']!="admin")
                                 </div>
                             </div>
                         </div>
+              
                 
         
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

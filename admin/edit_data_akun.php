@@ -135,8 +135,8 @@ if($_SESSION['level']!="admin")
                                     <div class="page-header-title">
                                         <i class="ik ik-edit bg-blue"></i>
                                         <div class="d-inline">
-                                            <h5>Data Profil</h5>
-                                            <span>Menu Data Profil Akun</span>
+                                            <h5>Edit Data Akun</h5>
+                                            <span>Menu Data Edit Data Akun</span>
                                             <hr>
                                         </div>
                                     </div>
@@ -147,16 +147,132 @@ if($_SESSION['level']!="admin")
                                             <li class="breadcrumb-item">
                                                 <a href="index.php"><i class="ik ik-home"></i></a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="data_profil.php">Data Akun</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Data Profil Akun</li>
+                                            <li class="breadcrumb-item active" aria-current="page">Data Akun</li>
+                                            <li class="breadcrumb-item active" aria-current="page">Edit Data Akun</li>
                                         </ol>
                                     </nav>
                                 </div>
                             </div>
                         </div>
-
+<?php
+include "../koneksi.php";
+if (isset($_GET['id'])) {
+  $id=$_GET['id'];
+  } else {
+  echo "<script>alert('Data Belum Terdaftar');document.location='index.php?page=buku'</script>";
+  }
+$sql = "select * from akun where id='$id'";
+$query=mysqli_query($connect, $sql);
+$data=mysqli_fetch_array($query);
+$id = $data['id'];
+$nip_baru = $data ['nip_baru'];
+$nama_lengkap = $data ['nama_lengkap'];
+$jenis_kelamin = $data ['jenis_kelamin'];
+$username = $data ['username'];
+$password = $data ['password'];
+$level = $data['level'];
+?>
                         <div class="row">
-                                <div class="col-md-12">
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>Edit Data Akun</h3></h3>
+                                    </div>
+                                <div class="card-body">
+                                    <form action="" method="post">
+                                            <div class="row">
+                                            <div class="col-sm-12">
+                                            <div class="input-group input-group-success">
+                                                    <span class="input-group-prepend">
+                                                        <label class="input-group-text">NIP Baru</label></span>
+                                                    <input type="text" class="form-control" name="nip_baru" value="<?php echo $nip_baru; ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group input-group-success">
+                                                    <span class="input-group-prepend"><label class="input-group-text">Nama Lengkap</span>
+                                                    <input type="text" class="form-control" name="nama_lengkap_akun" value="<?php echo $nama_lengkap; ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                        <label for="exampleSelectGender">Jenis Kelamin</label>
+                                                        <select class="form-control" name="jenis_kelamin">
+                                                        <option value="<?php echo $jenis_kelamin; ?>"><?php echo $jenis_kelamin; ?></option>
+                                                            <option value="Laki - Laki">Laki - Laki</option>
+                                                            <option value="Perempuan">Perempuan</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-sm-12">
+                                            <div class="input-group input-group-success">
+                                                    <span class="input-group-prepend">
+                                                        <label class="input-group-text">Username</label></span>
+                                                    <input type="text" class="form-control" name="username" value="<?php echo $username; ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group input-group-success">
+                                                    <span class="input-group-prepend"><label class="input-group-text">Password</span>
+                                                    <input type="password" class="form-control" name="password" value="<?php echo $password; ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                        <label for="exampleSelectGender">Level Akun</label>
+                                                        <select class="form-control" name="level">
+                                                        <option value="<?php echo $level; ?>"><?php echo $level; ?></option>
+                                                            <option value="admin">Admin</option>
+                                                            <option value="kepala_dinas">Kepala Dinas</option>
+                                                            <option value="staff_tu">Staff Tata Usaha</option>
+                                                            <option value="pegawai">Pegawai</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <input type="submit" class="btn btn-primary" name="EDIT_AKUN" id="EDIT_AKUN" value="+ Edit Akun">
+                                    </div>
+                                </form>
+                                </div>
+                                    </div>
+
+      
+                                    <?php
+
+include "../koneksi.php";
+    if (isset($_POST['EDIT_AKUN'])) {
+        $id = $data['id'];
+    $nip_baru = $_POST ['nip_baru'];
+    $nama_lengkap = $_POST ['nama_lengkap_akun'];
+    $jenis_kelamin = $_POST ['jenis_kelamin'];
+    $username = $_POST ['username'];
+    $password = $_POST ['password'];
+    $level = $_POST['level'];
+
+    $query  = "UPDATE akun SET nip_baru='$nip_baru', nama_lengkap='$nama_lengkap', jenis_kelamin='$jenis_kelamin', username='$username', password='$password', level='$level' where id='$id'";
+          $sql = mysqli_query($connect, $query); 
+
+           if($sql){
+              echo "<script>alert('Data Berhasil Diedit');document.location='data_akun.php'</script>"; // Redirect ke halaman index.php // Redirect ke halaman index.php
+            }else{
+              echo "Maaf, Terjadi kesalahan saat mencoba untuk menyimpan data ke database.";
+              echo "<br><a href='data_akun.php'>Kembali Ke Form</a>";
+            }
+        }
+
+?>
+
+                                <div class="col-lg-4 col-md-5">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="text-center"> 
@@ -172,50 +288,13 @@ if($_SESSION['level']!="admin")
                                         <h6><?php echo $jenis_kelamin;?></h6> 
                                         <small class="text-muted d-block pt-10">Agama</small>
                                         <h6><?php echo $agama;?></h6> 
-                                        <small class="text-muted d-block pt-10">Golongan Darah</small>
-                                        <h6><?php echo $golongan_darah;?></h6> 
-                                        <small class="text-muted d-block pt-10">Status Perkawinan</small>
-                                        <h6><?php echo $perkawinan;?></h6> 
                                         <small class="text-muted d-block pt-10">Hobi</small>
                                         <h6><?php echo $hobi;?></h6>
                                 </div>
                             </div>
                             </div>
 
-                           
-                            <?php
-
-include "../koneksi.php";
-    if (isset($_POST['TAMBAH_AKUN'])) {
-    $nip_baru = $_POST ['nip_baru'];
-    $nama_lengkap = $_POST ['nama_lengkap_akun'];
-    $jenis_kelamin = $_POST ['jenis_kelamin'];
-    $username = $_POST ['username'];
-    $password = $_POST ['password'];
-    $level = $_POST['level'];
-    $query1  = mysqli_query($connect, "INSERT INTO akun VALUES ('','$nip_baru','$nama_lengkap','$jenis_kelamin','$username','$password','$level')");
-    $query2  = mysqli_query($connect, "INSERT INTO profil (id,nip_baru,nama_lengkap,jenis_kelamin) VALUES ('','$nip_baru','$nama_lengkap','$jenis_kelamin')");
-
-           if($query1){
-              echo "<script>alert('Data Berhasil Ditambahkan');document.location='data_akun.php'</script>"; // Redirect ke halaman index.php // Redirect ke halaman index.php
-            }else{
-              echo "Maaf, Terjadi kesalahan saat mencoba untuk menyimpan data ke database.";
-              echo "<br><a href='data_akun.php'>Kembali Ke Form</a>";
-            }
-        
-
-        if($query2){
-            echo "<script>alert('Data Berhasil Ditambahkan');document.location='data_akun.php'</script>"; // Redirect ke halaman index.php // Redirect ke halaman index.php
-          }else{
-            echo "Maaf, Terjadi kesalahan saat mencoba untuk menyimpan data ke database.";
-            echo "<br><a href='data_akun.php'>Kembali Ke Form</a>";
-          }
-      }
-
-?>
-
-
-
+                     
 
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script>window.jQuery || document.write('<script src="../src/js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
