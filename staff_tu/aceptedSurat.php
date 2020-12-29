@@ -83,7 +83,7 @@ if($_SESSION['level']!="staff_tu")
       <div class="app-sidebar colored">
         <div class="sidebar-header">
           <a class="header-brand">
-            <span class="text">Kepala Dinas</span>
+            <span class="text">Staff Tata Usaha</span>
           </a>
         </div>
         <div class="sidebar-content">
@@ -91,15 +91,15 @@ if($_SESSION['level']!="staff_tu")
             <nav id="main-menu-navigation" class="navigation-main">
               <div class="nav-lavel"></div>
               <div class="nav-item">
-                <a href="index.html"><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
+                <a href="index.php"><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
               </div>
               <div class="nav-lavel"></div>
               <div class="nav-item">
-                <a href="pages/navbar.html"><i class="ik ik-menu"></i><span>Data Profil</span></a>
+                <a href="dataProfil.php"><i class="ik ik-menu"></i><span>Data Profil</span></a>
               </div>
               <div class="nav-lavel"></div>
               <div class="nav-item">
-                <a href=""><i class="ik ik-layers"></i><span>Data Pegawai</span></a>
+                <a href="DataPegawai.php"><i class="ik ik-layers"></i><span>Data Pegawai</span></a>
               </div>
               <div class="nav-lavel"></div>
               <div class="nav-item">
@@ -188,16 +188,16 @@ if($_SESSION['level']!="staff_tu")
 
   <?php
   if (isset($_POST['APPROVED'])) {
-  $status = $_POST['status'];
+    $status = $_POST['status'];
 
-  $query = "UPDATE surat_izin SET status='$status' where id='$id'";
-  $sql = mysqli_query($connect, $query); 
+    $query = "UPDATE surat_izin SET status='$status' where id='$id'";
+    $sql = mysqli_query($connect, $query); 
 
-  if($sql){ 
+    if($sql){ 
   echo "<script>alert('Data Berhasil Diedit');document.location='suratIzin.php'</script>"; // Redirect ke halaman index.php// Redirect ke halaman index.php
 }else{
-echo "Maaf, Terjadi kesalahan saat mencoba untuk menyimpan data ke database.";
-echo "<br><a href='index.php'>Kembali Ke Form</a>";
+  echo "Maaf, Terjadi kesalahan saat mencoba untuk menyimpan data ke database.";
+  echo "<br><a href='index.php'>Kembali Ke Form</a>";
 }
 }
 ?>

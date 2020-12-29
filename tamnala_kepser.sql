@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 24, 2020 at 04:52 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.34
+-- Waktu pembuatan: 29 Des 2020 pada 20.10
+-- Versi server: 10.1.21-MariaDB
+-- Versi PHP: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -24,88 +25,142 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `akun`
+-- Struktur dari tabel `akun`
 --
 
 CREATE TABLE `akun` (
   `id` bigint(20) NOT NULL,
-  `id_akun` varchar(225) NOT NULL,
+  `nip_baru` varchar(225) NOT NULL,
   `nama_lengkap` varchar(225) NOT NULL,
   `jenis_kelamin` varchar(225) NOT NULL,
   `username` varchar(225) NOT NULL,
   `password` varchar(225) NOT NULL,
-  `photo` varchar(225) NOT NULL,
   `level` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `akun`
+-- Dumping data untuk tabel `akun`
 --
 
-INSERT INTO `akun` (`id`, `id_akun`, `nama_lengkap`, `jenis_kelamin`, `username`, `password`, `photo`, `level`) VALUES
-(1, '3215212411980002', 'Ilham Azis Annaba', 'Laki - Laki', 'ilham', 'ilham', '', 'admin'),
-(2, 'qw', 'qw', 'qw', 'qw', 'qw', '', 'kepala_dinas'),
-(3, 'as', 'as', 'as', 'as', 'as', '', 'pegawai'),
-(4, 'zx', 'zx', 'zx', 'zx', 'zx', '', 'staff_tu'),
-(5, '2342', 'admin', 'Laki - Laki', 'admin', 'admin', '', 'admin');
+INSERT INTO `akun` (`id`, `nip_baru`, `nama_lengkap`, `jenis_kelamin`, `username`, `password`, `level`) VALUES
+(1, '3215212411980002', 'Ilham Azis Annaba', 'Laki - Laki', 'ilham', 'ilham', 'admin'),
+(18, '3215212411980000', 'Kepala Dinas', 'Perempuan', 'kepala', 'kepala', 'kepala_dinas'),
+(19, '3215212411980011', 'Gumilar', 'Laki - Laki', 'staf', 'staf', 'staff_tu'),
+(20, '3215212411980001', 'Raden Gumilar', 'Laki - Laki', 'pegawai', 'pegawai', 'pegawai'),
+(21, '3215212411980003', 'Ilham', 'Laki - Laki', 'pegawai2', 'pegawai2', 'pegawai');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `profil`
+-- Struktur dari tabel `profil`
 --
 
 CREATE TABLE `profil` (
   `id` bigint(20) NOT NULL,
-  `id_akun` varchar(150) NOT NULL,
+  `nip_lama` varchar(200) NOT NULL,
+  `nip_baru` varchar(200) NOT NULL,
+  `bukti_berkas_nip` text NOT NULL,
   `nama_lengkap` varchar(150) NOT NULL,
-  `lokasi` varchar(150) NOT NULL,
-  `eselon1` varchar(150) NOT NULL,
-  `eselon2` varchar(150) NOT NULL,
-  `eselon3` varchar(150) NOT NULL,
-  `eselon4` varchar(150) NOT NULL,
-  `golongan_darah` varchar(150) NOT NULL,
+  `gelar_depan` varchar(150) NOT NULL,
+  `bukti_gelar_depan_1` text NOT NULL,
+  `bukti_gelar_depan_2` text NOT NULL,
+  `gelar_belakang` varchar(150) NOT NULL,
+  `bukti_gelar_belakang_1` text NOT NULL,
+  `bukti_gelar_belakang_2` text NOT NULL,
+  `bukti_gelar_belakang_3` text NOT NULL,
+  `jenis_kelamin` varchar(150) NOT NULL,
   `agama` varchar(150) NOT NULL,
-  `pendidikan_terakhir` varchar(150) NOT NULL,
-  `eselon` varchar(150) NOT NULL,
-  `pangkat` varchar(150) NOT NULL,
-  `setatus_kawin` varchar(150) NOT NULL,
-  `jabatan` varchar(150) NOT NULL,
-  `kelompok_fungsional` varchar(150) NOT NULL,
-  `provinsi` varchar(150) NOT NULL
+  `golongan_darah` varchar(150) NOT NULL,
+  `perkawinan` varchar(150) NOT NULL,
+  `hobi` varchar(150) NOT NULL,
+  `berkas_photo` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `profil`
+--
+
+INSERT INTO `profil` (`id`, `nip_lama`, `nip_baru`, `bukti_berkas_nip`, `nama_lengkap`, `gelar_depan`, `bukti_gelar_depan_1`, `bukti_gelar_depan_2`, `gelar_belakang`, `bukti_gelar_belakang_1`, `bukti_gelar_belakang_2`, `bukti_gelar_belakang_3`, `jenis_kelamin`, `agama`, `golongan_darah`, `perkawinan`, `hobi`, `berkas_photo`) VALUES
+(1, '123456', '3215212411980002', '', 'Ilham Azis Annaba', 'H.', '', '', ',. S.Kom.', '', '', '', 'Laki - Laki', 'Islam', 'AB', 'Belum Kawin', 'Sepak Bola, Bulu Tangkis', ''),
+(5, '12', '0', '', 'qw', 'Ir.', '', '', ',. S.H.', '', '', '', 'Laki - Laki', 'ISLAM', 'B', 'Sudah Menikah', 'Bowling', ''),
+(6, '0', '0', '', 'as', '', '', '', '', '', '', '', 'Laki - Laki', '', '', '', '', ''),
+(7, '0', '3215212411980001', '', 'Raden Gumilar', '', '', '', '', '', '', '', 'Perempuan', '', '', '', '', ''),
+(8, '0', '3215212411980003', '', 'Ilham', '', '', '', '', '', '', '', 'Perempuan', '', '', '', '', ''),
+(9, '0', '3215212411980011', '', 'Gumilar', '', '', '', '', '', '', '', 'Perempuan', '', '', '', '', ''),
+(10, '0', '3215212411980000', '', 'Kepala Dinas', '', '', '', '', '', '', '', 'Perempuan', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `surat_izin`
+--
+
+CREATE TABLE `surat_izin` (
+  `id` int(11) NOT NULL,
+  `nip_baru` varchar(255) NOT NULL,
+  `nama_lengkap` varchar(255) NOT NULL,
+  `pangkat` varchar(255) NOT NULL,
+  `jabatan` varchar(255) NOT NULL,
+  `tanggal_awal` date NOT NULL,
+  `tanggal_akhir` date NOT NULL,
+  `lama_izin` varchar(255) NOT NULL,
+  `tipe_izin` varchar(255) NOT NULL,
+  `alasan` text NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `tgl` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `surat_izin`
+--
+
+INSERT INTO `surat_izin` (`id`, `nip_baru`, `nama_lengkap`, `pangkat`, `jabatan`, `tanggal_awal`, `tanggal_akhir`, `lama_izin`, `tipe_izin`, `alasan`, `status`, `tgl`) VALUES
+(10, '3215212411980001', 'Raden Gumilar', '', '', '2020-12-30', '2020-12-30', '3 hari', 'Cuti', 'cuti tahunan', 'Staff TU', '29 Desember 2020'),
+(11, '3215212411980003', 'Ilham', '', '', '2020-12-29', '2020-12-29', '3 Jam', 'keluar', 'Keperluan Keluarga', 'Di Terima', '29 Desember 2020');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `akun`
+-- Indeks untuk tabel `akun`
 --
 ALTER TABLE `akun`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `profil`
+-- Indeks untuk tabel `profil`
 --
 ALTER TABLE `profil`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indeks untuk tabel `surat_izin`
+--
+ALTER TABLE `surat_izin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `akun`
+-- AUTO_INCREMENT untuk tabel `akun`
 --
 ALTER TABLE `akun`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- AUTO_INCREMENT for table `profil`
+-- AUTO_INCREMENT untuk tabel `profil`
 --
 ALTER TABLE `profil`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT untuk tabel `surat_izin`
+--
+ALTER TABLE `surat_izin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

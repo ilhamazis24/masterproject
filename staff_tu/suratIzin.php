@@ -46,6 +46,16 @@ if(!isset($_SESSION['id'])){
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
           <![endif]-->
+          <?php
+          include "../koneksi.php";
+          $id = $_SESSION['id'];
+          $query="SELECT * FROM akun where id='$id'";
+          $sql = mysqli_query ($connect,$query);
+          $data=mysqli_fetch_array($sql);
+          $nama_lengkap = $data ['nama_lengkap'];
+          $nip_baru = $data['nip_baru'];
+          $level = $data['level'];
+          ?>
 
           <div class="wrapper">
             <header class="header-top" header-theme="light">
@@ -56,10 +66,12 @@ if(!isset($_SESSION['id'])){
                     <b><span >&nbsp;&nbsp;&nbsp;Taman Nasional Laut Kepulauan Seribu</span></b>
                   </div>
                   <div class="top-menu d-flex align-items-center">
+                    <span><b><?= $nama_lengkap; ?></b></span>
                     <div class="dropdown">
                       <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar" src="../img/user.jpg" alt=""></a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="profile.html"><i class="ik ik-user dropdown-icon"></i> Profile</a>
+                        <a class="dropdown-item"><?= $nama_lengkap; ?></a>
+                        <a class="dropdown-item"><?= $nip_baru; ?></a>
                         <a class="dropdown-item" href="../logout.php"><i class="ik ik-power dropdown-icon"></i> Logout</a>
                       </div>
                     </div>
@@ -73,7 +85,7 @@ if(!isset($_SESSION['id'])){
               <div class="app-sidebar colored">
                 <div class="sidebar-header">
                   <a class="header-brand">
-                    <span class="text">Kepala Dinas</span>
+                    <span class="text">Staff Tata Usaha</span>
                   </a>
                 </div>
                 <div class="sidebar-content">
@@ -81,15 +93,15 @@ if(!isset($_SESSION['id'])){
                     <nav id="main-menu-navigation" class="navigation-main">
                       <div class="nav-lavel"></div>
                       <div class="nav-item">
-                        <a href="index.html"><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
+                        <a href="index.php"><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
                       </div>
                       <div class="nav-lavel"></div>
                       <div class="nav-item">
-                        <a href="pages/navbar.html"><i class="ik ik-menu"></i><span>Data Profil</span></a>
+                        <a href="dataProfil.php"><i class="ik ik-menu"></i><span>Data Profil</span></a>
                       </div>
                       <div class="nav-lavel"></div>
                       <div class="nav-item">
-                        <a href=""><i class="ik ik-layers"></i><span>Data Pegawai</span></a>
+                        <a href="DataPegawai.php"><i class="ik ik-layers"></i><span>Data Pegawai</span></a>
                       </div>
                       <div class="nav-lavel"></div>
                       <div class="nav-item">
@@ -131,7 +143,7 @@ if(!isset($_SESSION['id'])){
                             <tr class="text-center">
                               <th scope="row"><?= $no++; ?></th>
                               <td><?= $d['nama_lengkap']; ?></td>
-                              <td><?= $d['id_akun']; ?></td>
+                              <td><?= $d['nip_baru']; ?></td>
                               <td><?= $d['tipe_izin']; ?></td>
                               <td><?= $d['lama_izin']; ?></td>
                               <td><?= $d['tanggal_awal']; ?></td>
@@ -156,6 +168,7 @@ if(!isset($_SESSION['id'])){
                               <?php } ?>
                               <td>
                                 <a href="aceptedSurat.php?id=<?php echo $d['id']; ?>" class="btn btn-success btn-sm"><i class="fa fa-check"></i></a>
+                                <a href='cetak_surat.php?id=<?= $d['id']; ?>' class='btn btn-dark btn-sm'><i class='fa fa-print'></i></a>
                               </td>
                             </tr>
                           </tbody>

@@ -115,7 +115,7 @@ if($_SESSION['level']!="admin")
                                 </div>
                                 <div class="nav-lavel"></div>
                                 <div class="nav-item">
-                                    <a href="data_pegawai.php"><i class="ik ik-layers"></i><span>Data Pegawai</span></a>
+                                    <a href=""><i class="ik ik-layers"></i><span>Data Pegawai</span></a>
                                 </div>
                                 <div class="nav-lavel"></div>
                                 <div class="nav-item">
@@ -135,8 +135,8 @@ if($_SESSION['level']!="admin")
                                     <div class="page-header-title">
                                         <i class="ik ik-edit bg-blue"></i>
                                         <div class="d-inline">
-                                            <h5>Data Profil</h5>
-                                            <span>Menu Data Profil Akun</span>
+                                            <h5>Tambah Data Akun</h5>
+                                            <span>Menu Data Tambah Data Akun</span>
                                             <hr>
                                         </div>
                                     </div>
@@ -147,8 +147,8 @@ if($_SESSION['level']!="admin")
                                             <li class="breadcrumb-item">
                                                 <a href="index.php"><i class="ik ik-home"></i></a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="data_profil.php">Data Akun</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Data Profil Akun</li>
+                                            <li class="breadcrumb-item"><a href="tambah_data_akun.php">Data Akun</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Tambah Data Akun</li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -156,7 +156,80 @@ if($_SESSION['level']!="admin")
                         </div>
 
                         <div class="row">
-                                <div class="col-md-12">
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>Tambah Data Akun</h3></h3>
+                                    </div>
+                                <div class="card-body">
+                                    <form action="" method="post">
+                                            <div class="row">
+                                            <div class="col-sm-12">
+                                            <div class="input-group input-group-success">
+                                                    <span class="input-group-prepend">
+                                                        <label class="input-group-text">NIP Baru</label></span>
+                                                    <input type="text" class="form-control" name="nip_baru" placeholder="Masukkan NIP Baru">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group input-group-success">
+                                                    <span class="input-group-prepend"><label class="input-group-text">Nama Lengkap</span>
+                                                    <input type="text" class="form-control" name="nama_lengkap_akun" placeholder="Masukkan Nama Lengkap">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                        <label for="exampleSelectGender">Jenis Kelamin</label>
+                                                        <select class="form-control" name="jenis_kelamin">
+                                                            <option value="Laki - Laki">Laki - Laki</option>
+                                                            <option value="Perempuan">Perempuan</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-sm-12">
+                                            <div class="input-group input-group-success">
+                                                    <span class="input-group-prepend">
+                                                        <label class="input-group-text">Username</label></span>
+                                                    <input type="text" class="form-control" name="username" placeholder="Masukkan Username">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group input-group-success">
+                                                    <span class="input-group-prepend"><label class="input-group-text">Password</span>
+                                                    <input type="password" class="form-control" name="password" placeholder="Masukkan Password">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                        <label for="exampleSelectGender">Level Akun</label>
+                                                        <select class="form-control" name="level">
+                                                            <option value="admin">Admin</option>
+                                                            <option value="kepala_dinas">Kepala Dinas</option>
+                                                            <option value="staff_tu">Staff Tata Usaha</option>
+                                                            <option value="pegawai">Pegawai</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <input type="submit" class="btn btn-primary" name="TAMBAH_AKUN" id="TAMBAH_AKUN" value="+ Tambah Akun">
+                                    </div>
+                                </form>
+                                </div>
+                                    </div>
+
+
+
+                                <div class="col-lg-4 col-md-5">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="text-center"> 
@@ -172,10 +245,6 @@ if($_SESSION['level']!="admin")
                                         <h6><?php echo $jenis_kelamin;?></h6> 
                                         <small class="text-muted d-block pt-10">Agama</small>
                                         <h6><?php echo $agama;?></h6> 
-                                        <small class="text-muted d-block pt-10">Golongan Darah</small>
-                                        <h6><?php echo $golongan_darah;?></h6> 
-                                        <small class="text-muted d-block pt-10">Status Perkawinan</small>
-                                        <h6><?php echo $perkawinan;?></h6> 
                                         <small class="text-muted d-block pt-10">Hobi</small>
                                         <h6><?php echo $hobi;?></h6>
                                 </div>

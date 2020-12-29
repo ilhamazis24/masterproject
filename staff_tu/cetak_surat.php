@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
 	$data=mysqli_fetch_array($query);
 	$id = $data['id'];
 	$nama_lengkap = $data['nama_lengkap'];
-	$id_akun = $data['id_akun'];
+	$nip_baru = $data['nip_baru'];
 	$pangkat = $data['pangkat'];
 	$jabatan = $data['jabatan'];
 	$tanggal_awal = $data['tanggal_awal'];
@@ -15,6 +15,7 @@ if (isset($_GET['id'])) {
 	$lama_izin = $data['lama_izin'];
 	$tipe_izin = $data['tipe_izin'];
 	$alasan = $data['alasan'];
+	$tgl = $data['tgl'];
 }
 ?>
 
@@ -30,14 +31,15 @@ function getImages($value)
 	return $base64;
 }
 
-$cover = getImages('../image/default.png');
+$imgLeft = getImages('../image/image1.png');
+$imgRight = getImages('../image/image2.png');
 ?>
 
 <?php ob_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>IPK Mahasiswa <?php echo $nama_lengkap; ?></title>
+	<title>Surat Izin <?php echo $nama_lengkap; ?></title>
 </head>
 
 
@@ -69,82 +71,63 @@ table, th, td {
 	text-align: left;
 }
 
-#customers {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	/*border: 1px solid #ddd;*/
-	border-collapse: collapse;
-	width: 100%;
-	/*float: right;*/
-}
-
-#customers td, #customers th {
-	/*border: 1px solid #ddd;*/
-	padding: 4px;
-	/*text-align: center;*/
-}
-
-#customers tr:nth-child(even){background-color: #dddddd;}
-
-#customers tr:hover {background-color: #ddd;}
-
-#customers th {
-	padding-top: 6px;
-	padding-bottom: 6px;
-	/*text-align: c;*/
-	background-color: #fecd1a;
-	color: black;
-}
 
 /* Create two equal columns that floats next to each other */
 .column {
 	float: left;
-	width: 35%;
+	width: 75%;
 	padding: 10px;
-	height: 300px; /* Should be removed. Only for demonstration */
 	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
 }
 
 .column-2 {
+	float: right;
+	width: 25%;
+	padding: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.column-isi {
+	/*float: left;*/
+	width: 100%;
+	padding: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.header-left{
+	/*background-color: grey;*/
 	float: left;
-	width: 65%;
-	height: 300px; /* Should be removed. Only for demonstration */
+	width: 15%;
+	padding: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.header-right{
+	/*background-color: red;*/
+	float: right;
+	width: 15%;
+	padding: 10px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 }
 
 .header {
 	float: left;
-	width: 25%;
+	/*background-color: teal;*/
+	text-align: center;
+	width: 62%;
 	padding: 10px;
 	font-family: Arial, Helvetica, sans-serif;
-}
-
-.header-2 {
-	float: left;
-	width: 60%;
-	padding: 40px;
-	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
 	
 }
 
-.footer {
-	float: left;
-	width: 30%;
-	padding: 10px;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
 .footer-2 {
-	float: left;
-	width: 30%;
-	padding: 5px;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 12px;	
-}
-
-.footer-3 {
-	float: left;
+	float: right;
 	width: 40%;
 	padding: 5px;
 	font-family: Arial, Helvetica, sans-serif;
@@ -161,130 +144,87 @@ table, th, td {
 <body>
 
 	<div class="row">
-		<div class="header">
+		<div class="header-left">
 			<!-- <h1><?php echo $foto;?></h1> -->
-			<img class="rounded float-left" style="padding-top: 20px; border-radius: 100%; padding-left: 20px;" src="<?php echo $cover;  ?>" width="130" />
+			<img class="rounded float-left" style="border-radius: 100%; " src="<?php echo $imgLeft;  ?>" width="90" />
 		</div>
-		<div class="header-2">
-			<p>KOP SURAT</p>
+		<div class="header-right">
+			<img class="" style="border-radius: 100%; float: right;" src="<?php echo $imgRight;  ?>" width="90" />
+		</div>
+		<div class="header">
+			<span style="text-align: center; font-size: 16px;">
+				<b>DINAS LINGKUNGAN HIDUP DAN KEHUTANAN <br/>TAMAN NASIONAL KEPULAUAN SERIBU</b><br/>
+			</span>
+			<span>Alamat : Pulau Pramuka, Kel. Pulau Panggang, Kec. Kepulauan Seribu Utara, Kab. Kepulauan Seribu, Daerah Khusus Ibukota Jakarta 14530<br/>Website : www.simpulseribu.id</span>
 		</div>
 	</div>
 	<hr/>
 	<div class="row">
-		<div class="column">
-			<br/>
-			<table>
-				<tr>
-					<th>Tempat Lahir :</th>
-				</tr>
-				<tr>
-					<td></td>
-				</tr>
-				<tr><td></td></tr>
-				<tr><td></td></tr>
-				<tr>
-					<th>Lembaga :</th>
-				</tr>
-				<tr>
-					<td>Universitas Katolik Parahyangan</td>
-				</tr>
-				<tr><td></td></tr>
-				<tr><td></td></tr>
-				<tr>
-					<th>Jabatan :</th>
-				</tr>
-				<tr>
-					<td>Kepala Program Studi PPI</td>
-				</tr>
-				<tr><td></td></tr>
-				<tr><td></td></tr>
-				<tr><td></td></tr>
-				<tr>
-					<th style="color: #93abd3; font-size: 18px;">CONTACT</th>
-				</tr>
-				<tr>
-					<th>Telepon :</th>
-				</tr>
-				<tr>
-					<td></td>
-				</tr>
-				<tr><td></td></tr>
-				<tr><td></td></tr>
-				<tr>
-					<th>Email :</th>
-				</tr>
-				<tr>
-					<td></td>
-				</tr>
-				<tr><td></td></tr>
-				<tr><td></td></tr>
-				<tr><td></td></tr>
-				<tr>
-					<th style="color: #93abd3; font-size: 18px;">PENDIDIKAN</th>
-				</tr>
-			</table>
-		</div>
 		<div class="column-2">
-			<p style="font-size: 16px;"><b>HASIL PENILAIAN AKADEMIK</b></p>
-			<hr style="color: #93abd3" />
-			<p>Berdasarkan assesmen capaian pembelajaran yang dilakukan pada :</p>
+			<p>Jakarta. <?= $tgl; ?></p>
+		</div>
+		<br/>
+		<div class="column">
 			<table>
 				<tr>
-					<td>Hari</td>
+					<td>Perihal</td>
 					<td>:</td>
-					<td>Kamis</td>
+					<td><?= $tipe_izin; ?></td>
 				</tr>
 				<tr>
-					<td>Tanggal</td>
+					<td>Lampiran</td>
 					<td>:</td>
-					<td>10</td>
+					<td>-</td>
 				</tr>
 			</table>
-			<p>Dihasilkan Nilai Berikut :</p>
-			
-
-			<p>Oleh karena itu, mahasiswa yang tertera namanya dalam surat hasil assesmen ini memiliki : </p>
-			<?php  
-			$sql = "SELECT * FROM hasil_nilai WHERE nokta ='$nokta'";
-			$query=mysqli_query($connect, $sql);
-			$nilai=mysqli_fetch_array($query);
-			$ipk = $nilai['ipk'];
-			?>
-			<p class="" style="font-size: 14px; background-color: #fecd1a; padding: 5px; float: left;"><b> IPK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <?php echo $ipk; ?></b></p>
-			<br/>
-			<br/>
-			<p>Berkas hasil assesmen capaian pembelajaran disertakan sebagai lampiran yang menjadi salah satu kesatuan nilai akademik berikut.</p>
-			<br/>
-			<br/>
-			<?php
-			setlocale(LC_ALL, 'id_ID');
-			$hariIni = new DateTime();
-			?>
-			<p style="float: right;">Bandung, <?php echo strftime('%d %B %Y', $hariIni->getTimestamp()); ?></p>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
 		</div>
 	</div>
+
 	<div class="row">
-		<div class="footer">
+		<div class="column-isi">
+			<p>Kepada Yth. <br/> <b>Kepala Dinas Lingkungan Hidup dan Kehutanan <br/> Taman Nasional Kepulauan Seribu</b> <br/>Di-<br/>Tempat</p>
+			<p>Dengan Hormat,</p>
+			<p>Saya Yang Bertanda Tangan Dibawah Ini,</p>
+			<div class="" style="padding-left: 20px;">
+				<table>
+					<tr>
+						<td>NIP</td>
+						<td>:</td>
+						<td>-</td>
+					</tr>
+					<tr>
+						<td>Nama Lengkap</td>
+						<td>:</td>
+						<td><?= $nama_lengkap; ?></td>
+					</tr>
+					<tr>
+						<td>Pangkat/Gol</td>
+						<td>:</td>
+						<td><?= $pangkat; ?></td>
+					</tr>
+					<tr>
+						<td>Jabatan</td>
+						<td>:</td>
+						<td><?= $jabatan; ?></td>
+					</tr>
+				</table>
+			</div>
 		</div>
+		<div class="column-isi">
+			<p style="text-align: justify;">Dengan ini saya mengajukan permintaan <?= $tipe_izin; ?> selama  <?= $lama_izin; ?> terhitung pada tanggal, <?= date('d F Y', strtotime($tanggal_awal)); ?> sampai dengan <?= date('d F Y', strtotime($tanggal_akhir)); ?>.</p>
+			<p style="text-align: justify;">Demikian surat permohonan cuti tahunan ini saya ajukan. Atas perhatian dan diberikannya permohonan izin ini, saya ucapkan banyak terima kasih</p>
+		</div>
+	</div>
+	<br/>
+	<div class="row">
 		<div class="footer-2">
-			<p style="text-align: center;">Asesor I</p>
+			<p style="text-align: center;">Hormat Saya,</p>
 			<br/>
 			<br/>
 			<br/>
 			<br/>
-			<p style="text-align: center;"></p>
-		</div>
-		<div class="footer-3">
-			<p style="text-align: center;">Asesor II</p>
 			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<p style="text-align: center;">(  )</p>
+			<p style="text-align: center;">( <?= $nama_lengkap; ?>) <br/>NIP : <?= $nip_baru; ?></p>
 		</div>
 	</div>
 
@@ -295,7 +235,7 @@ table, th, td {
 
 $html = ob_get_clean(); 
 use Dompdf\Dompdf;
-require_once '../vendorPDF/autoload.php';
+require_once '../vendorPDF/vendor/autoload.php';
 define("DOMPDF_UNICODE_ENABLED", true);
 $dompdf = new Dompdf();
 $dompdf->loadHtml($html); 

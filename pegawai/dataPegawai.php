@@ -5,41 +5,26 @@ session_start();
 
 //cek apakah user sudah login
 if(!isset($_SESSION['id'])){
-    die("<script>alert('Anda Belum Login');document.location='../index.php'</script>");//
+die("<script>alert('Anda Belum Login');document.location='../index.php'</script>");//
 }
 
 if($_SESSION['level']!="pegawai")
 {
-  die("<script>alert('Anda Bukan Pegawai');document.location='../index.php'</script>");
+  die("<script>alert('Anda Bukan Admin');document.location='../index.php'</script>");
 }
 ?>
-
-<?php
-include "../koneksi.php";
-$id = $_SESSION['id'];
-$query="SELECT * FROM akun where id='$id'";
-$sql = mysqli_query ($connect,$query);
-$data=mysqli_fetch_array($sql);
-$nama_lengkap = $data ['nama_lengkap'];
-$nip_baru = $data['nip_baru'];
-$jenis_kelamin = $data['jenis_kelamin'];
-$username = $data['username'];
-$password = $data['password'];
-$level = $data['level'];
-?>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Pegawai | Taman Nasional Laut Kepulauan Seribu</title>
+    <title>Data Profil | Taman Nasional Laut Kepulauan Seribu</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
     <link rel="icon" href="../img/auth/login-bgtnlks.png" type="image/x-icon" />
 
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800" rel="stylesheet">
-
+    
     <link rel="stylesheet" href="../plugins/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="../plugins/icon-kit/dist/css/iconkit.min.css">
@@ -61,34 +46,63 @@ $level = $data['level'];
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
+        <?php
+        include "../koneksi.php";
+        $id = $_SESSION['id'];
+        $query="SELECT * FROM akun where id='$id'";
+        $sql = mysqli_query ($connect,$query);
+        $data=mysqli_fetch_array($sql);
+        $nama_lengkap = $data ['nama_lengkap'];
+        $nip_baru = $data['nip_baru'];
+        $level = $data['level'];
+        ?>
+
+        <?php
+        include "../koneksi.php";
+        $query="SELECT * FROM profil where nip_baru='$nip_baru'";
+        $sql = mysqli_query ($connect,$query);
+        $data=mysqli_fetch_array($sql);
+        $nama_lengkap = $data ['nama_lengkap'];
+        $nip_lama = $data['nip_lama'];
+        $nip_baru = $data['nip_baru'];
+        $gelar_depan = $data ['gelar_depan'];
+        $gelar_belakang = $data ['gelar_belakang'];
+        $jenis_kelamin = $data ['jenis_kelamin'];
+        $golongan_darah = $data ['golongan_darah'];
+        $agama = $data ['agama'];
+        $perkawinan = $data ['perkawinan'];
+        $hobi = $data ['hobi'];
+        ?>
         <div class="wrapper">
-            <header class="header-top" header-theme="light">
+            <header class="header-top" header-theme="green">
                 <div class="container-fluid">
                     <div class="d-flex justify-content-between">
                         <div class="top-menu d-flex align-items-center">
                             <img src="../img/auth/login-bgtnlks.png" style="max-height: 35px">
-                            <b><span >&nbsp;&nbsp;&nbsp;Taman Nasional Laut Kepulauan Seribu</span></b>
+                            <span><b>&nbsp;&nbsp;&nbsp;Taman Nasional Laut Kepulauan Seribu</b></span>
                         </div>
                         <div class="top-menu d-flex align-items-center">
+                            <span><b><?php echo $gelar_depan; echo $nama_lengkap; echo $gelar_belakang; ?></b></span>
                             <div class="dropdown">
                                 <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar" src="../img/user.jpg" alt=""></a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                    <p class="dropdown-item"><?= $nama_lengkap; ?></p>
-                                    <p class="dropdown-item"><?= $nip_baru; ?></p>
+                                    <a class="dropdown-item"><?= $nama_lengkap; ?></a>
+                                    <a class="dropdown-item"><?= $nip_baru; ?></a>
                                     <a class="dropdown-item" href="../logout.php"><i class="ik ik-power dropdown-icon"></i> Logout</a>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-                </div>
+                </div> 
             </header>
+            <
+
 
             <div class="page-wrap">
                 <div class="app-sidebar colored">
                     <div class="sidebar-header">
                         <a class="header-brand">
-                            <span class="text">Pegawai</span>
+                            <span class="text"><?= $level; ?></span>
                         </a>
                     </div>
                     <div class="sidebar-content">
@@ -118,93 +132,52 @@ $level = $data['level'];
                         </div>
                     </div>
                 </div>
+
                 <div class="main-content">
                     <div class="container-fluid">
-                        <div class="row clearfix">
-                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                <div class="widget">
-                                    <div class="widget-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="state">
-                                                <h6>Bookmarks</h6>
-                                                <h2>1,410</h2>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="ik ik-award"></i>
-                                            </div>
+                        <div class="page-header">
+                            <div class="row align-items-end">
+                                <div class="col-lg-8">
+                                    <div class="page-header-title">
+                                        <i class="ik ik-edit bg-blue"></i>
+                                        <div class="d-inline">
+                                            <h5><?= $nama_lengkap; ?></h5>
+                                            <span><?= $nip_baru; ?></span>
+                                            <hr>
                                         </div>
-                                        <small class="text-small mt-10 d-block">6% higher than last month</small>
-                                    </div>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" style="width: 62%;"></div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                <div class="widget">
-                                    <div class="widget-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="state">
-                                                <h6>Likes</h6>
-                                                <h2>41,410</h2>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="ik ik-thumbs-up"></i>
-                                            </div>
-                                        </div>
-                                        <small class="text-small mt-10 d-block">61% higher than last month</small>
-                                    </div>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="width: 78%;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                <div class="widget">
-                                    <div class="widget-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="state">
-                                                <h6>Events</h6>
-                                                <h2>410</h2>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="ik ik-calendar"></i>
-                                            </div>
-                                        </div>
-                                        <small class="text-small mt-10 d-block">Total Events</small>
-                                    </div>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="31" aria-valuemin="0" aria-valuemax="100" style="width: 31%;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                <div class="widget">
-                                    <div class="widget-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="state">
-                                                <h6>Comments</h6>
-                                                <h2>41,410</h2>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="ik ik-message-square"></i>
-                                            </div>
-                                        </div>
-                                        <small class="text-small mt-10 d-block">Total Comments</small>
-                                    </div>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;"></div>
-                                    </div>
+                                <div class="col-lg-4">
+                                    <a href="" class="btn btn-sm btn-primary">Lengkapi Data Pegawai</a>
                                 </div>
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="card-body"> 
+                                            <small class="text-muted d-block">Jenis Kelamin</small>
+                                            <h6><?php echo $jenis_kelamin;?></h6> 
+                                            <small class="text-muted d-block pt-10">Agama</small>
+                                            <h6><?php echo $agama;?></h6> 
+                                            <small class="text-muted d-block pt-10">Golongan Darah</small>
+                                            <h6><?php echo $golongan_darah;?></h6> 
+                                            <small class="text-muted d-block pt-10">Status Perkawinan</small>
+                                            <h6><?php echo $perkawinan;?></h6> 
+                                            <small class="text-muted d-block pt-10">Hobi</small>
+                                            <h6><?php echo $hobi;?></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script>window.jQuery || document.write('<script src="../src/js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
         <script src="../plugins/popper.js/dist/umd/popper.min.js"></script>
