@@ -1,6 +1,10 @@
+
 <!doctype html>
 <html class="no-js" lang="en">
+
 <?php
+include "../koneksi.php";
+
 session_start();
 
 //cek apakah user sudah login
@@ -45,241 +49,215 @@ if($_SESSION['level']!="admin")
 </head>
 
 <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+
+    <?php
+
+    $id = $_SESSION['id'];
+    $query="SELECT * FROM profil where id='$id'";
+    $sql = mysqli_query ($connect,$query);
+    $no = 1;
+    while ($hasil = mysqli_fetch_array($sql)) {
+        $nama_lengkap = $hasil ['nama_lengkap'];
+        $gelar_depan = $hasil ['gelar_depan'];
+        $gelar_belakang = $hasil ['gelar_belakang'];
+        ?>
+
+    <?php } ?>
+
+    <div class="wrapper">
+        <header class="header-top" header-theme="green">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between">
+                    <div class="top-menu d-flex align-items-center">
+                        <img src="../img/auth/login-bgtnlks.png" style="max-height: 35px">
+                        <b><span >&nbsp;&nbsp;&nbsp;Taman Nasional Laut Kepulauan Seribu</span></b>
+                    </div>
+                    <div class="top-menu d-flex align-items-center">
+                        <span><b><?php echo $gelar_depan; echo $nama_lengkap; echo $gelar_belakang; ?></b></span>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar" src="../img/user.jpg" alt=""></a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                <p class="dropdown-item"><?= $nama_lengkap; ?></p>
+                                <p class="dropdown-item"><?= $nip_baru; ?></p>
+                                <a class="dropdown-item" href="../logout.php"><i class="ik ik-power dropdown-icon"></i> Logout</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </header>
         <?php
-        include "../koneksi.php";
-        $id = $_SESSION['id'];
-        $query="SELECT * FROM profil where id='$id'";
-        $sql = mysqli_query ($connect,$query);
-        $no = 1;
-        while ($hasil = mysqli_fetch_array($sql)) {
-            $nama_lengkap = $hasil ['nama_lengkap'];
-            $gelar_depan = $hasil ['gelar_depan'];
-            $gelar_belakang = $hasil ['gelar_belakang'];
-            ?>
+        $dataTotal = mysqli_query($connect,"SELECT * FROM profil");
+        $total = mysqli_num_rows($dataTotal); ?>
+        ?>
 
-        <?php } ?>
+        <?php
+        $cuti = mysqli_query($connect,"SELECT COUNT('tipe_izin') AS tipe FROM surat_izin WHERE tipe_izin='Cuti'");
+        while($hasilCuti = mysqli_fetch_array($cuti)){
+            $jumlahCuti = $hasilCuti['tipe'];
+            $totalCuti = round($jumlahCuti/$total * 100,1);
+        }
 
-        <div class="wrapper">
-            <header class="header-top" header-theme="green">
+        $sakit = mysqli_query($connect,"SELECT COUNT('tipe_izin') AS tipe FROM surat_izin WHERE tipe_izin='Sakit'");
+        while($hasilSakit = mysqli_fetch_array($sakit)){
+            $jumlahSakit = $hasilSakit['tipe'];
+            $totalSakit = round($jumlahSakit/$total * 100,1);
+        }
+
+        $keluar = mysqli_query($connect,"SELECT COUNT('tipe_izin') AS tipe FROM surat_izin WHERE tipe_izin='Keluar'");
+        while($hasilKeluar = mysqli_fetch_array($keluar)){
+            $jumlahKeluar = $hasilKeluar['tipe'];
+            $totalKeluar = round($jumlahKeluar/$total * 100,1);
+
+        } ?>
+        <div class="page-wrap">
+            <div class="app-sidebar colored">
+                <div class="sidebar-header">
+                    <a class="header-brand" >
+                        <span class="text">Administrator</span>
+                    </a>
+                </div>
+                <div class="sidebar-content">
+                    <div class="nav-container">
+                        <nav id="main-menu-navigation" class="navigation-main">
+                            <div class="nav-lavel"></div>
+                            <div class="nav-item">
+                                <a href=" "><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
+                            </div>
+                            <div class="nav-lavel"></div>
+                            <div class="nav-item">
+                                <a href="data_profil.php"><i class="ik ik-menu"></i><span>Data Profil</span></a>
+                            </div>
+                            <div class="nav-lavel"></div>
+                            <div class="nav-item">
+                                <a href="data_akun.php"><i class="ik ik-package"></i><span>Data Akun</span></a>
+                            </div>
+                            <div class="nav-lavel"></div>
+                            <div class="nav-item">
+                                <a href="data_pegawai.php"><i class="ik ik-layers"></i><span>Data Pegawai</span></a>
+                            </div>
+                            <div class="nav-lavel"></div>
+                            <!-- <div class="nav-item">
+                                <a href="#"><i class="ik ik-box"></i><span>Data Surat Izin</span></a>
+                            </div> -->
+                            <div class="nav-lavel"></div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="main-content">
                 <div class="container-fluid">
-                    <div class="d-flex justify-content-between">
-                        <div class="top-menu d-flex align-items-center">
-                            <img src="../img/auth/login-bgtnlks.png" style="max-height: 35px">
-                            <b><span >&nbsp;&nbsp;&nbsp;Taman Nasional Laut Kepulauan Seribu</span></b>
-                        </div>
-                        <div class="top-menu d-flex align-items-center">
-                            <span><b><?php echo $gelar_depan; echo $nama_lengkap; echo $gelar_belakang; ?></b></span>
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar" src="../img/user.jpg" alt=""></a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="profile.html"><i class="ik ik-user dropdown-icon"></i> Profile</a>
-                                    <a class="dropdown-item" href="../logout.php"><i class="ik ik-power dropdown-icon"></i> Logout</a>
+                    <div class="page-header">
+                        <div class="row align-items-end">
+                            <div class="col-lg-8">
+                                <div class="page-header-title">
+                                    <i class="ik ik-menu bg-blue"></i>
+                                    <div class="d-inline">
+                                        <h5>Reporting Data Pegawai Taman Nasional Laut Kepulauan Seribu</h5>
+                                        <span>Total Pegawai <b><?php echo $total; ?></b></span>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-lg-4">
+                                <p style="color: red;">Rumus Persen = Total Pegawai / tipe Izin * 100</p>
 
-                        </div>
-                    </div>
-                </div>
-            </header>
-
-            <div class="page-wrap">
-                <div class="app-sidebar colored">
-                    <div class="sidebar-header">
-                        <a class="header-brand" >
-                            <span class="text">Administrator</span>
-                        </a>
-                    </div>
-                    <div class="sidebar-content">
-                        <div class="nav-container">
-                            <nav id="main-menu-navigation" class="navigation-main">
-                                <div class="nav-lavel"></div>
-                                <div class="nav-item">
-                                    <a href=" "><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
-                                </div>
-                                <div class="nav-lavel"></div>
-                                <div class="nav-item">
-                                    <a href="data_profil.php"><i class="ik ik-menu"></i><span>Data Profil</span></a>
-                                </div>
-                                <div class="nav-lavel"></div>
-                                <div class="nav-item">
-                                    <a href="data_akun.php"><i class="ik ik-package"></i><span>Data Akun</span></a>
-                                </div>
-                                <div class="nav-lavel"></div>
-                                <div class="nav-item">
-                                    <a href="data_pegawai.php"><i class="ik ik-layers"></i><span>Data Pegawai</span></a>
-                                </div>
-                                <div class="nav-lavel"></div>
-                                <div class="nav-item">
-                                    <a href="#"><i class="ik ik-box"></i><span>Data Surat Izin</span></a>
-                                </div>
-                                <div class="nav-lavel"></div>
-                            </nav>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="main-content">
-                    <div class="container-fluid">
-                        <div class="page-header">
-                            <div class="row align-items-end">
-                                <div class="col-lg-8">
-                                    <div class="page-header-title">
-                                        <i class="ik ik-menu bg-blue"></i>
-                                        <div class="d-inline">
-                                            <h5>Reporting Data Pegawai Taman Nasional Laut Kepulauan Seribu</h5>
-                                            <span>Tahun 2020 - 2021</span>
+                    <div class="row">
+                        <!-- Round Chart statustc card start -->
+                        <div class="col-xl-4 col-md-6">
+                            <div class="card card-red st-cir-card text-white">
+                                <div class="card-block">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <div id="status-round-1" class="chart-shadow st-cir-chart" style="width:80px;height:80px">
+                                                <h5><?= $totalCuti; ?>%</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col text-center">
+                                            <h3 class=" fw-700 mb-5"><?= $jumlahCuti; ?></h3>
+                                            <h6 class="mb-0 ">Cuti</h6>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-
+                                    <span class="st-bt-lbl"><?= $totalCuti; ?></span>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <!-- Round Chart statustc card start -->
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card card-red st-cir-card text-white">
-                                    <div class="card-block">
-                                        <div class="row align-items-center">
-                                            <div class="col-auto">
-                                                <div id="status-round-1" class="chart-shadow st-cir-chart" style="width:80px;height:80px">
-                                                    <h5>42%</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col text-center">
-                                                <h3 class=" fw-700 mb-5">144</h3>
-                                                <h6 class="mb-0 ">Cuti</h6>
+                        <div class="col-xl-4 col-md-6">
+                            <div class="card card-blue st-cir-card text-white">
+                                <div class="card-block">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <div id="status-round-2" class="chart-shadow st-cir-chart" style="width:80px;height:80px">
+                                                <h5><?= $totalSakit; ?>%</h5>
                                             </div>
                                         </div>
-                                        <span class="st-bt-lbl">42</span>
+                                        <div class="col text-center">
+                                            <h3 class="fw-700 mb-5"><?= $jumlahSakit; ?></h3>
+                                            <h6 class="mb-0">Sakit</h6>
+                                        </div>
                                     </div>
+                                    <span class="st-bt-lbl"><?= $totalSakit; ?></span>
                                 </div>
                             </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card card-blue st-cir-card text-white">
-                                    <div class="card-block">
-                                        <div class="row align-items-center">
-                                            <div class="col-auto">
-                                                <div id="status-round-2" class="chart-shadow st-cir-chart" style="width:80px;height:80px">
-                                                    <h5>56%</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col text-center">
-                                                <h3 class="fw-700 mb-5">102</h3>
-                                                <h6 class="mb-0">Sakit</h6>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                            <div class="card card-green st-cir-card text-white">
+                                <div class="card-block">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <div id="status-round-3" class="chart-shadow st-cir-chart" style="width:80px;height:80px">
+                                                <h5><?= $totalKeluar ?>%</h5>
                                             </div>
                                         </div>
-                                        <span class="st-bt-lbl">56</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card card-green st-cir-card text-white">
-                                    <div class="card-block">
-                                        <div class="row align-items-center">
-                                            <div class="col-auto">
-                                                <div id="status-round-3" class="chart-shadow st-cir-chart" style="width:80px;height:80px">
-                                                    <h5>83%</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col text-center">
-                                                <h3 class="fw-700 mb-5">124</h3>
-                                                <h6 class="mb-0">Keluar</h6>
-                                            </div>
+                                        <div class="col text-center">
+                                            <h3 class="fw-700 mb-5"><?= $jumlahKeluar; ?></h3>
+                                            <h6 class="mb-0">Keluar</h6>
                                         </div>
-                                        <span class="st-bt-lbl">83</span>
                                     </div>
+                                    <span class="st-bt-lbl"><?= $totalKeluar; ?></span>
                                 </div>
                             </div>
-                            
-                            <!-- Round Chart statustc card end -->
+                        </div>
 
-                            <!-- product bar chart start -->
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card prod-bar-card">
-                                    <div class="card-header">
-                                        <h3>Order Received</h3>
-                                    </div>
-                                    <div class="card-block">
-                                        <p>June - July</p>
-                                        <div class="row text-center">
-                                            <div class="col-6">
-                                                <div id="pbc-1" class="pbc-chart" style="height:50px"></div>
-                                                <h6>$ 56,480<i class="fas fa-caret-up ml-10 text-green"></i></h6>
-                                            </div>
-                                            <div class="col-6">
-                                                <div id="pbc-2" class="pbc-chart" style="height:50px"></div>
-                                                <h6>$ 32,432<i class="fas fa-caret-down ml-10 text-red"></i></h6>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <!-- Round Chart statustc card end -->
+
+                        <!-- product bar chart start -->
+
+
+                        <div class="col-xl-6 col-md-6">
+                            <div class="card prod-bar-card">
+                                <div class="card-header">
+                                    <h3>Diagram Data Pegawai</h3>
+                                </div>
+                                <div class="card-block">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Tipe Izin</th>
+                                                <th>Jumlah Izin</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card prod-bar-card">
-                                    <div class="card-header">
-                                        <h3>Total Sales</h3>
-                                    </div>
-                                    <div class="card-block">
-                                        <p>June - July</p>
-                                        <div class="row text-center">
-                                            <div class="col-6">
-                                                <div id="pbc-3" class="pbc-chart" style="height:50px"></div>
-                                                <h6>$ 56,480<i class="fas fa-caret-up ml-10 text-green"></i></h6>
-                                            </div>
-                                            <div class="col-6">
-                                                <div id="pbc-4" class="pbc-chart" style="height:50px"></div>
-                                                <h6>$ 32,432<i class="fas fa-caret-down ml-10 text-red"></i></h6>
-                                            </div>
-                                        </div>
-                                    </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6">
+                            <div class="card prod-bar-card">
+                                <div class="card-header">
+                                    <h3>Chart Izin Pegawai</h3>
                                 </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card prod-bar-card">
-                                    <div class="card-header">
-                                        <h3>Total Profit</h3>
-                                    </div>
-                                    <div class="card-block">
-                                        <p>June - July</p>
-                                        <div class="row text-center">
-                                            <div class="col-6">
-                                                <div id="pbc-5" class="pbc-chart" style="height:50px"></div>
-                                                <h6>$ 56,480<i class="fas fa-caret-up ml-10 text-green"></i></h6>
-                                            </div>
-                                            <div class="col-6">
-                                                <div data-label="60%" class="radial-bar radial-bar-60 radial-bar-sm radial-bar-warning mb-5"></div>
-                                                <h6>$2.6k<i class="fas fa-caret-down ml-10 text-red"></i></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card prod-bar-card">
-                                    <div class="card-header">
-                                        <h3>Total Profit</h3>
-                                    </div>
-                                    <div class="card-block">
-                                        <p>June - July</p>
-                                        <div class="row text-center">
-                                            <div class="col-6">
-                                                <div id="pbc-6" class="pbc-chart" style="height:50px"></div>
-                                                <h6>$ 56,480<i class="fas fa-caret-up ml-10 text-green"></i></h6>
-                                            </div>
-                                            <div class="col-6">
-                                                <div data-label="60%" class="radial-bar radial-bar-60 radial-bar-sm radial-bar-warning mb-5"></div>
-                                                <h6>$2.6k<i class="fas fa-caret-down ml-10 text-red"></i></h6>
-                                            </div>
+                                <div class="card-block">
+                                    <div class="text-center">
+                                        <iframe src="../diagram/pie.php" width="100%" height="300" style="border: none;"></iframe>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- product bar chart end -->
-
                         </div>
 
                     </div>
@@ -333,14 +311,16 @@ if($_SESSION['level']!="admin")
         <script src="../dist/js/theme.min.js"></script>
         <script src="../dist/js/theme.js"></script>
 
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-                function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='https://www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
-        </script>
-    </body>
-    </html>
+        
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='https://www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+</script>
+</body>
+</html>

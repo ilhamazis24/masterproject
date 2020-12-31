@@ -128,6 +128,10 @@ if($_SESSION['level']!="pegawai")
                                 <div class="nav-item">
                                     <a href="DataAkun.php"><i class="ik ik-box"></i><span>Data Account</span></a>
                                 </div>
+                                <div class="nav-lavel"></div>
+                                <div class="nav-item">
+                                    <a href="laporan.php"><i class="ik ik-box"></i><span>Laporan</span></a>
+                                </div>
                             </nav>
                         </div>
                     </div>

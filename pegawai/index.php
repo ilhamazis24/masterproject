@@ -84,6 +84,31 @@ $level = $data['level'];
                 </div>
             </header>
 
+            <?php
+            $dataTotal = mysqli_query($connect,"SELECT * FROM profil");
+            $total = mysqli_num_rows($dataTotal); ?>
+            ?>
+
+            <?php
+            $cuti = mysqli_query($connect,"SELECT COUNT('tipe_izin') AS tipe FROM surat_izin WHERE tipe_izin='Cuti'");
+            while($hasilCuti = mysqli_fetch_array($cuti)){
+                $jumlahCuti = $hasilCuti['tipe'];
+                $totalCuti = round($jumlahCuti/$total * 100,1);
+            }
+
+            $sakit = mysqli_query($connect,"SELECT COUNT('tipe_izin') AS tipe FROM surat_izin WHERE tipe_izin='Sakit'");
+            while($hasilSakit = mysqli_fetch_array($sakit)){
+                $jumlahSakit = $hasilSakit['tipe'];
+                $totalSakit = round($jumlahSakit/$total * 100,1);
+            }
+
+            $keluar = mysqli_query($connect,"SELECT COUNT('tipe_izin') AS tipe FROM surat_izin WHERE tipe_izin='Keluar'");
+            while($hasilKeluar = mysqli_fetch_array($keluar)){
+                $jumlahKeluar = $hasilKeluar['tipe'];
+                $totalKeluar = round($jumlahKeluar/$total * 100,1);
+
+            } ?>
+
             <div class="page-wrap">
                 <div class="app-sidebar colored">
                     <div class="sidebar-header">
@@ -114,93 +139,131 @@ $level = $data['level'];
                                 <div class="nav-item">
                                     <a href="DataAkun.php"><i class="ik ik-box"></i><span>Data Account</span></a>
                                 </div>
+                                <div class="nav-lavel"></div>
+                                <div class="nav-item">
+                                    <a href="laporan.php"><i class="ik ik-box"></i><span>Laporan</span></a>
+                                </div>
                             </nav>
                         </div>
                     </div>
                 </div>
                 <div class="main-content">
                     <div class="container-fluid">
-                        <div class="row clearfix">
-                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                <div class="widget">
-                                    <div class="widget-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="state">
-                                                <h6>Bookmarks</h6>
-                                                <h2>1,410</h2>
+                        <div class="page-header">
+                            <div class="row align-items-end">
+                                <div class="col-lg-8">
+                                    <div class="page-header-title">
+                                        <i class="ik ik-menu bg-blue"></i>
+                                        <div class="d-inline">
+                                            <h5>Reporting Data Pegawai Taman Nasional Laut Kepulauan Seribu</h5>
+                                            <span>Total Pegawai <b><?php echo $total; ?></b></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p style="color: red;">Rumus Persen = Total Pegawai / tipe Izin * 100</p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Round Chart statustc card start -->
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card card-red st-cir-card text-white">
+                                    <div class="card-block">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <div id="status-round-1" class="chart-shadow st-cir-chart" style="width:80px;height:80px">
+                                                    <h5><?= $totalCuti; ?>%</h5>
+                                                </div>
                                             </div>
-                                            <div class="icon">
-                                                <i class="ik ik-award"></i>
+                                            <div class="col text-center">
+                                                <h3 class=" fw-700 mb-5"><?= $jumlahCuti; ?></h3>
+                                                <h6 class="mb-0 ">Cuti</h6>
                                             </div>
                                         </div>
-                                        <small class="text-small mt-10 d-block">6% higher than last month</small>
-                                    </div>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" style="width: 62%;"></div>
+                                        <span class="st-bt-lbl"><?= $totalCuti; ?></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                <div class="widget">
-                                    <div class="widget-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="state">
-                                                <h6>Likes</h6>
-                                                <h2>41,410</h2>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card card-blue st-cir-card text-white">
+                                    <div class="card-block">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <div id="status-round-2" class="chart-shadow st-cir-chart" style="width:80px;height:80px">
+                                                    <h5><?= $totalSakit; ?>%</h5>
+                                                </div>
                                             </div>
-                                            <div class="icon">
-                                                <i class="ik ik-thumbs-up"></i>
+                                            <div class="col text-center">
+                                                <h3 class="fw-700 mb-5"><?= $jumlahSakit; ?></h3>
+                                                <h6 class="mb-0">Sakit</h6>
                                             </div>
                                         </div>
-                                        <small class="text-small mt-10 d-block">61% higher than last month</small>
-                                    </div>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="width: 78%;"></div>
+                                        <span class="st-bt-lbl"><?= $totalSakit; ?></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                <div class="widget">
-                                    <div class="widget-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="state">
-                                                <h6>Events</h6>
-                                                <h2>410</h2>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card card-green st-cir-card text-white">
+                                    <div class="card-block">
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <div id="status-round-3" class="chart-shadow st-cir-chart" style="width:80px;height:80px">
+                                                    <h5><?= $totalKeluar ?>%</h5>
+                                                </div>
                                             </div>
-                                            <div class="icon">
-                                                <i class="ik ik-calendar"></i>
+                                            <div class="col text-center">
+                                                <h3 class="fw-700 mb-5"><?= $jumlahKeluar; ?></h3>
+                                                <h6 class="mb-0">Keluar</h6>
                                             </div>
                                         </div>
-                                        <small class="text-small mt-10 d-block">Total Events</small>
-                                    </div>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="31" aria-valuemin="0" aria-valuemax="100" style="width: 31%;"></div>
+                                        <span class="st-bt-lbl"><?= $totalKeluar; ?></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                <div class="widget">
-                                    <div class="widget-body">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="state">
-                                                <h6>Comments</h6>
-                                                <h2>41,410</h2>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="ik ik-message-square"></i>
-                                            </div>
-                                        </div>
-                                        <small class="text-small mt-10 d-block">Total Comments</small>
+
+                            <!-- Round Chart statustc card end -->
+
+                            <!-- product bar chart start -->
+
+
+                            <div class="col-xl-6 col-md-6">
+                                <div class="card prod-bar-card">
+                                    <div class="card-header">
+                                        <h3>Diagram Data Pegawai</h3>
                                     </div>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;"></div>
+                                    <div class="card-block">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Tipe Izin</th>
+                                                    <th>Jumlah Izin</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xl-6 col-md-6">
+                                <div class="card prod-bar-card">
+                                    <div class="card-header">
+                                        <h3>Chart Izin Pegawai</h3>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="text-center">
+                                            <iframe src="../diagram/pie.php" width="100%" height="300" style="border: none;"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- product bar chart end -->
                         </div>
 
                     </div>
                 </div>
+                
             </div>
         </div>
 
